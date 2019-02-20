@@ -18,8 +18,8 @@ export default () => {
   const [currentYear, setYear] = useState(2019);
   const monthRows = getMonths(currentYear);
   const currentIndex = getMonth(new Date());
-  const curr = flatten(monthRows).find(({ index }) => index === currentIndex);
-  const [currentMonth, setMonth] = useState(curr);
+  const [currentMonthIndex, setMonth] = useState(currentIndex); // This needs to be an index to handle switching years
+  const currentMonth = flatten(monthRows).find(({ index }) => index === currentMonthIndex);
   const dateRows = getDateRows();
   console.log(currentYear, currentMonth, monthRows, dateRows);
 
@@ -34,7 +34,7 @@ export default () => {
           </td>
           {
             monthRows[0].map((month, i) =>
-              <td key={i} style={month.index === currentMonth.index ? styles.selectedMonth : null} onClick={() => setMonth(month)}>{month.text}</td>
+              <td key={i} style={month.index === currentMonth.index ? styles.selectedMonth : null} onClick={() => setMonth(month.index)}>{month.text}</td>
             )
           }
         </tr>
@@ -45,7 +45,7 @@ export default () => {
               <tr key={i}>
                 {
                   monthRow.map((month, i) =>
-                    <td key={i} style={month.index === currentMonth.index ? styles.selectedMonth : null} onClick={() => setMonth(month)}>{month.text}</td>
+                    <td key={i} style={month.index === currentMonth.index ? styles.selectedMonth : null} onClick={() => setMonth(month.index)}>{month.text}</td>
                   )
                 }
               </tr>
