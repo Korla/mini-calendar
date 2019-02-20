@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/mini-calendar/precache-manifest.3a394572bd7b51aadfd3c8dd141a8d69.js"
+  "/mini-calendar/precache-manifest.50f83dc09323e990d5de86c5fbf661b1.js"
 );
 
 workbox.clientsClaim();
