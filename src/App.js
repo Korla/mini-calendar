@@ -4,13 +4,6 @@ import { getMonths, getDays, getDateRows } from './dateutils';
 import { getMonth } from 'date-fns';
 
 const styles = {
-  selectedMonth: {
-    fontWeight: 800,
-    color: 'black'
-  },
-  outsideMonth: {
-    backgroundColor: '#eee'
-  },
   sunday: {
     color: 'red'
   }
@@ -38,7 +31,11 @@ export default () => {
           </td>
           {
             monthRows[0].map((month, i) =>
-              <td key={i} style={month.index === currentMonth.index ? styles.selectedMonth : null} onClick={() => setMonth(month.index)}>{month.text}</td>
+              <td key={i}
+                className={[month.text !== '' ? 'hover' : '', month.index === currentMonth.index ? 'selected' : ''].join(' ')}
+                onClick={() => setMonth(month.index)}>
+                {month.text}
+              </td>
             )
           }
         </tr>
@@ -49,7 +46,11 @@ export default () => {
               <tr key={i}>
                 {
                   monthRow.map((month, i) =>
-                    <td key={i} style={month.index === currentMonth.index ? styles.selectedMonth : null} onClick={() => setMonth(month.index)}>{month.text}</td>
+                    <td key={i}
+                      className={[month.text !== '' ? 'hover' : '', month.index === currentMonth.index ? 'selected' : ''].join(' ')}
+                      onClick={() => setMonth(month.index)}>
+                      {month.text}
+                    </td>
                   )
                 }
               </tr>
@@ -59,8 +60,8 @@ export default () => {
           dateRows.map((dateRow, i) =>
             <tr className='date' key={i}>
               {
-                dateRow.map((date, i) =>
-                  <td key={i} style={date > currentMonth.daysInMonth ? styles.outsideMonth : null}>{date}</td>
+                dateRow.map((text, i) =>
+                  <td key={i} className={[text !== '' ? 'hover' : '', text > currentMonth.daysInMonth ? 'disabled' : ''].join(' ')}>{text}</td>
                 )
               }
               {

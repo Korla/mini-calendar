@@ -63,11 +63,30 @@ table {
 }
 
 td {
-	padding: 4px;
+	padding: 6px 10px;
   width: 16px;
   text-align: center;
 	vertical-align: middle;
-  border: 1px solid #ddd;
+	border: 1px solid #ddd;
+  cursor: default;
+}
+
+td.hover {
+	cursor: pointer;
+}
+
+td.hover:hover {
+	color: white;
+	background-color: #777;
+}
+
+td.disabled {
+	background-color: #eee;
+}
+
+td.selected {
+	font-weight: 800;
+	color: auto;
 }
 
 tr:first-child td,
