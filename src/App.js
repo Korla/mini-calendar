@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
 import './App.css';
 import { getMonths, getDays, getDateRows } from './dateutils';
+import { getMonth } from 'date-fns';
+
+const selectedMonth = {
+  color: 'red'
+}
 
 export default () => {
-  const [year, setYear] = useState(2019);
-  const monthRows = getMonths(year);
+  const [currentYear, setYear] = useState(2019);
+  const [currentMonth, setMonth] = useState(getMonth(new Date()));
+  const monthRows = getMonths(currentYear);
+
   return (
     <table>
       <tbody>
         <tr>
           <td rowSpan="3" colSpan="5" className="buttons">
-            <div>{year}</div>
-            <button onClick={() => setYear(year - 1)}>Prev</button>
-            <button onClick={() => setYear(year + 1)}>Next</button>
+            <div>{currentYear}</div>
+            <button onClick={() => setYear(currentYear - 1)}>Prev</button>
+            <button onClick={() => setYear(currentYear + 1)}>Next</button>
           </td>
           {
             monthRows[0].map((month, i) =>
-              <td key={i}>{month}</td>
+              <td key={i} style={month.index === currentMonth ? selectedMonth : null} onClick={() => setMonth(month)}>{month.text}</td>
             )
           }
         </tr>
@@ -27,7 +34,7 @@ export default () => {
               <tr key={i}>
                 {
                   monthRow.map((month, i) =>
-                    <td key={i}>{month}</td>
+                    <td key={i} style={month.index === currentMonth ? selectedMonth : null} onClick={() => setMonth(month)}>{month.text}</td>
                   )
                 }
               </tr>
