@@ -54,6 +54,10 @@ table {
 /*
 	App css
 */
+h1 {
+	font-size: 33px;
+}
+
 table {
   font-family: monospace;
 }
@@ -76,7 +80,7 @@ td:first-child {
 	border-left: 2px solid #777;
 }
 
-.data td:nth-child(5),
+.date td:nth-child(5),
 td:last-child {
 	border-right: 2px solid #777;
 }

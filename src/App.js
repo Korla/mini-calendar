@@ -5,9 +5,13 @@ import { getMonth } from 'date-fns';
 
 const styles = {
   selectedMonth: {
-    color: 'red'
+    fontWeight: 800,
+    color: 'black'
   },
   outsideMonth: {
+    backgroundColor: '#eee'
+  },
+  sunday: {
     color: 'red'
   }
 }
@@ -27,8 +31,8 @@ export default () => {
     <table>
       <tbody>
         <tr>
-          <td rowSpan="3" colSpan="5" className="buttons">
-            <div>{currentYear}</div>
+          <td rowSpan='3' colSpan='5' className='buttons'>
+            <h1>{currentYear}</h1>
             <button onClick={() => setYear(currentYear - 1)}>Prev</button>
             <button onClick={() => setYear(currentYear + 1)}>Next</button>
           </td>
@@ -53,7 +57,7 @@ export default () => {
         }
         {
           dateRows.map((dateRow, i) =>
-            <tr className="data" key={i}>
+            <tr className='date' key={i}>
               {
                 dateRow.map((date, i) =>
                   <td key={i} style={date > currentMonth.daysInMonth ? styles.outsideMonth : null}>{date}</td>
@@ -61,7 +65,7 @@ export default () => {
               }
               {
                 getDays(i).map((day, i) =>
-                  <td key={i}>{day}</td>
+                  <td key={i} style={day === 'Sun' ? styles.sunday : null}>{day}</td>
                 )
               }
             </tr>
