@@ -1,4 +1,4 @@
-import { getISODay } from 'date-fns';
+import { getISODay, getDaysInMonth } from 'date-fns';
 
 const range = (start, end) => Array(end - start + 1).fill().map((_, i) => start + i);
 
@@ -15,8 +15,8 @@ export const getDateRows = () => range(1, 7)
 export const allMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const getMonths = year => {
   const months = range(0, 11)
-    .map(m => getISODay(new Date(year, m, 1)))
-    .map((start, i) => ({ text: allMonths[i], cell: start - 1, index: i }));
+    .map(m => new Date(year, m, 1))
+    .map((firstOfMonth, i) => ({ text: allMonths[i], cell: getISODay(firstOfMonth) - 1, index: i, daysInMonth: getDaysInMonth(firstOfMonth) }));
   const result = [];
   const cells = range(0, 6);
   while (months.length) {

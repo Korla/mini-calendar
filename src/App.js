@@ -3,14 +3,25 @@ import './App.css';
 import { getMonths, getDays, getDateRows } from './dateutils';
 import { getMonth } from 'date-fns';
 
-const selectedMonth = {
-  color: 'red'
+const styles = {
+  selectedMonth: {
+    color: 'red'
+  },
+  outsideMonth: {
+    color: 'red'
+  }
 }
+
+const flatten = arr => arr.reduce((flat, a) => flat.concat(a), []);
 
 export default () => {
   const [currentYear, setYear] = useState(2019);
-  const [currentMonth, setMonth] = useState(getMonth(new Date()));
   const monthRows = getMonths(currentYear);
+  const currentIndex = getMonth(new Date());
+  const curr = flatten(monthRows).find(({ index }) => index === currentIndex);
+  const [currentMonth, setMonth] = useState(curr);
+  const dateRows = getDateRows();
+  console.log(currentYear, currentMonth, monthRows, dateRows);
 
   return (
     <table>
@@ -23,7 +34,7 @@ export default () => {
           </td>
           {
             monthRows[0].map((month, i) =>
-              <td key={i} style={month.index === currentMonth ? selectedMonth : null} onClick={() => setMonth(month)}>{month.text}</td>
+              <td key={i} style={month.index === currentMonth.index ? styles.selectedMonth : null} onClick={() => setMonth(month)}>{month.text}</td>
             )
           }
         </tr>
@@ -34,18 +45,18 @@ export default () => {
               <tr key={i}>
                 {
                   monthRow.map((month, i) =>
-                    <td key={i} style={month.index === currentMonth ? selectedMonth : null} onClick={() => setMonth(month)}>{month.text}</td>
+                    <td key={i} style={month.index === currentMonth.index ? styles.selectedMonth : null} onClick={() => setMonth(month)}>{month.text}</td>
                   )
                 }
               </tr>
             ))
         }
         {
-          getDateRows().map((row, i) =>
+          dateRows.map((dateRow, i) =>
             <tr className="data" key={i}>
               {
-                row.map((cell, i) =>
-                  <td key={i}>{cell}</td>
+                dateRow.map((date, i) =>
+                  <td key={i} style={date > currentMonth.daysInMonth ? styles.outsideMonth : null}>{date}</td>
                 )
               }
               {
